@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    This is what everybody sees
+</div>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+
+<div sec:authorize="!isAuthenticated()">
+    This content is only shown to NOT authenticated users.
+</div>
+
+</body>
+</html>
