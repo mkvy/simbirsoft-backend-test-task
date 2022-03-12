@@ -31,10 +31,11 @@ public class UserService {
     }
 
     public User registerUser(UserDto userDto) {
-        log.info("Register new user {} to the db", userDto.getUsername());
         if (emailExist(userDto.getUsername())) {
+            log.info("UserExistsException occused");
             throw new UserExistsException("There is already account with that email: " + userDto.getUsername());
         }
+        log.info("Signup new user {} to the db", userDto.getUsername());
         String password = securityConfig.passwordEncoder().encode(userDto.getPassword());
         User user = new User(null, userDto.getUsername(), password, new ArrayList<>());
         return userRepository.save(user);
