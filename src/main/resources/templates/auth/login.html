@@ -1,21 +1,25 @@
 <html>
-<head></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+</head>
 <body>
-<h1>Login</h1>
+<h1>Логин</h1>
 <form name="form" action="/api/login" method='POST'>
     <table>
         <tr>
-            <td>User:</td>
+            <td>Почта:</td>
             <td><input type='text' name='username' value=''></td>
         </tr>
         <tr>
-            <td>Password:</td>
+            <td>Пароль:</td>
             <td><input type='password' name='password' /></td>
         </tr>
         <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
+            <td><input name="submit" type="submit" value="Отправить" /></td>
         </tr>
     </table>
 </form>
+<li><a href="/">На главную</a></li>
 </body>
 </html>

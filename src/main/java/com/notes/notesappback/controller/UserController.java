@@ -5,6 +5,7 @@ import com.notes.notesappback.dto.UserDto;
 import com.notes.notesappback.dto.UserRegDto;
 import com.notes.notesappback.exceptions.UserExistsException;
 import com.notes.notesappback.model.User;
+import com.notes.notesappback.service.AuthService;
 import com.notes.notesappback.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ import java.util.List;
 @Slf4j
 public class UserController {
     private final UserService userService;
+    private final AuthService authService;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
@@ -48,6 +50,7 @@ public class UserController {
         UserDto userDto = UserDto.builder().username(userRegDto.getUsername()).password(userRegDto.getPassword()).build();
         try {
             User registered = userService.registerUser(userDto);
+            authService.login(userDto);
         } catch (UserExistsException uaeEx) {
             log.info("Controller UserExistsException handle");
             mav = new ModelAndView("/error");

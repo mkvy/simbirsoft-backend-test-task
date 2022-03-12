@@ -1,20 +1,24 @@
 <html>
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
 <body>
-<h1 th:text="Registration">form</h1>
+<h1 th:text="Registration">Форма регистрации</h1>
 <form action="/api/register" th:object="${user}" method="POST" enctype="utf8">
     <div>
-        <label th:text="Username">User email</label>
+        <label th:text="Почта">Почта</label>
         <input th:field="*{username}"/>
     </div>
     <div>
-        <label th:text="Password">password</label>
+        <label th:text="Пароль">Пароль</label>
         <input type="password" th:field="*{password}"/>
     </div>
     <div>
-        <label th:text="confirmPass">confirm password</label>
+        <label th:text="Подтвердите пароль">Подтвердите пароль</label>
         <input type="password" th:field="*{matchingPassword}"/>
     </div>
-    <button type="submit" th:text="Submit">submit</button>
+    <button type="submit" th:text="Отправить">Отправить</button>
     <div th:if="${#fields.hasAnyErrors()}">
         <ul>
             <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />

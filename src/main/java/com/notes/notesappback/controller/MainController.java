@@ -2,7 +2,6 @@ package com.notes.notesappback.controller;
 
 import com.notes.notesappback.dto.UserDto;
 import com.notes.notesappback.dto.UserRegDto;
-import com.notes.notesappback.model.User;
 import com.notes.notesappback.service.AuthService;
 import com.notes.notesappback.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @Slf4j
-public class AuthController {
+public class MainController {
 
     private final AuthService authService;
     private final UserService userService;
@@ -29,6 +28,11 @@ public class AuthController {
         log.info("login " + userDto.getUsername() + " " + userDto.getPassword());
         authService.login(userDto);
         log.info("logged in " + userService.getCurrentUser().getUsername());
+    }
+
+    @GetMapping("/createNote")
+    public String createPage() {
+        return "/note/noteForm";
     }
 
     @GetMapping("/login")

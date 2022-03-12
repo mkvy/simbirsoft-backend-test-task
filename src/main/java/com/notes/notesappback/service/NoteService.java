@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -32,12 +32,17 @@ public class NoteService {
 
     public Note saveNoteFromCurrentUser(NoteDto noteDto) {
         User user = userService.getCurrentUser();
-        return noteRepository.save(Note.builder().noteText(noteDto.getNoteText()).user(user).build());
+        return noteRepository.save(Note.builder().noteText(noteDto.getNoteText()).user(user).createdDate(Instant.now()).build());
     }
 
     public void deleteNote(Note note) {
         log.info("Deleting note {}", note.getId());
         noteRepository.delete(note);
+    }
+
+    public Long countNote() {
+        User user = userService.getCurrentUser();
+        return noteRepository.countAllByUser(user);
     }
 
     public Note addNoteFromUser(String noteText, String username) {
@@ -56,5 +61,11 @@ public class NoteService {
     public List<Note> findAllNotes() {
         log.info("Fetching all notes");
         return noteRepository.findAll();
+    }
+
+    public List<Note> findAllNotesByCurUser() {
+        log.info("Fetching notes from current user");
+        User user = userService.getCurrentUser();
+        return noteRepository.findAllByUser(user);
     }
 }

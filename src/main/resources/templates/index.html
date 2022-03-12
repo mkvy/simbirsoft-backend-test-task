@@ -3,20 +3,25 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Главная страница</title>
 </head>
 <body>
 
-<div>
-    This is what everybody sees
-</div>
+<ul>
+    <li><a href="/">На главную</a></li>
+    <div sec:authorize="!isAuthenticated()">
+        <li><a href="/api/login">Авторизация</a></li>
+        <li><a href="/api/signup">Регистрация</a></li>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <li><a href="/api/notes">Список заметок</a></li>
+        <li><a href="/api/createNote">Добавить заметку</a></li>
+        <li><a href="/logout">Выйти</a></li>
+    </div>
+</ul>
+
 <div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+    <h4>Заметок создано пользователем: <span th:text="${@noteService.countNote()}" /></h4>
 </div>
-
-<div sec:authorize="!isAuthenticated()">
-    This content is only shown to NOT authenticated users.
-</div>
-
 </body>
 </html>

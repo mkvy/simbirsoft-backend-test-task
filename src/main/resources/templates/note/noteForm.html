@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать записку</title>
+</head>
+<body>
+<form action="/api/notes/saveNote" method="post">
+    <label for="note">Заметка:</label><br>
+    <textarea id="note" name="noteText" class="text" cols="40" rows="7"></textarea><br>
+    <input type="submit" value="Submit">
+</form>
+<ul>
+    <li><a href="/">На главную</a></li>
+    <li><a href="/api/notes">Список заметок</a></li>
+</ul>
+</body>
+</html>

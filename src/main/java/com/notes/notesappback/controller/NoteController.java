@@ -4,24 +4,31 @@ import com.notes.notesappback.dto.NoteDto;
 import com.notes.notesappback.model.Note;
 import com.notes.notesappback.service.NoteService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/note")
+@Controller
+@RequestMapping("/api/notes")
 @RequiredArgsConstructor
+@Slf4j
 public class NoteController {
 
     private final NoteService noteService;
 
-    @PostMapping("/saveNote")
-    public ResponseEntity<?> saveNote(@RequestBody NoteDto noteDto) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/note/saveNote").toUriString());
-        return ResponseEntity.created(uri).body(noteService.saveNoteFromCurrentUser(noteDto));
+    @PostMapping(value = "/saveNote", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String saveNote(@Valid NoteDto noteDto) {
+        log.info("Recieved note  " + noteDto.getNoteText());
+        noteService.saveNoteFromCurrentUser(noteDto);
+        return "redirect:/api/notes";
     }
 
     @PostMapping("/create")
@@ -36,6 +43,11 @@ public class NoteController {
     }
 
     @GetMapping()
+    public String getAllNotesByCurUser(Model model) {
+        model.addAttribute("notes", noteService.findAllNotesByCurUser());
+        return "/note/list";
+    }
+    @GetMapping("/all")
     public ResponseEntity<List<Note>> getAllNotes() {
         return ResponseEntity.ok().body(noteService.findAllNotes());
     }

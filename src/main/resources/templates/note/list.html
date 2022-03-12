@@ -1,0 +1,27 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Список заметок</title>
+</head>
+<table>
+    <thead>
+    <tr>
+        <th> ID </th>
+        <th> Текст заметки </th>
+        <th> Дата </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${notes.empty}">
+        <td colspan="2"> Заметок нет </td>
+    </tr>
+    <tr th:each="note : ${notes}">
+        <td><span th:text="${note.id}"> ID </span></td>
+        <td><span th:text="${note.noteText}"> Заметка </span></td>
+        <td><span th:text="${note.createdDate}"> Дата </span></td>
+    </tr>
+    </tbody>
+</table>
+<ul>
+    <li><a href="/">На главную</a></li>
+    <li><a href="/api/createNote">Добавить заметку</a></li>
+</ul>
