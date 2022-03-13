@@ -1,6 +1,5 @@
 package com.notes.notesappback.security;
 
-import com.notes.notesappback.security.failure.CustomAuthenticationFailureHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -38,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/error.html").permitAll()
                 .antMatchers("/index.html").permitAll()
+                .antMatchers("/api/login*").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -45,14 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/api/login")
                 .and()
                 .formLogin()
-                .loginPage("/api/login")
+                .loginPage("/api/login").permitAll()
                 .defaultSuccessUrl("/", true)
-                .failureHandler(authenticationFailureHandler());
-    }
-
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler();
+                .failureUrl("/api/login/?error=true");
     }
 
     @Override

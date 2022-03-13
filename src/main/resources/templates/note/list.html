@@ -5,7 +5,6 @@
 <table>
     <thead>
     <tr>
-        <th> ID </th>
         <th> Текст заметки </th>
         <th> Дата </th>
     </tr>
@@ -15,7 +14,6 @@
         <td colspan="2"> Заметок нет </td>
     </tr>
     <tr th:each="note : ${notes}">
-        <td><span th:text="${note.id}"> ID </span></td>
         <td><span th:text="${note.noteText}"> Заметка </span></td>
         <td><span th:text="${note.createdDate}"> Дата </span></td>
     </tr>
@@ -24,4 +22,5 @@
 <ul>
     <li><a href="/">На главную</a></li>
     <li><a href="/api/createNote">Добавить заметку</a></li>
+    <li><a href="/logout">Выйти</a></li>
 </ul>

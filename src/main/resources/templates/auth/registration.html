@@ -4,21 +4,21 @@
     <title>Регистрация</title>
 </head>
 <body>
-<h1 th:text="Registration">Форма регистрации</h1>
+<h1 text="Форма регистрации">Форма регистрации</h1>
 <form action="/api/register" th:object="${user}" method="POST" enctype="utf8">
     <div>
-        <label th:text="Почта">Почта</label>
+        <label>Почта</label>
         <input th:field="*{username}"/>
     </div>
     <div>
-        <label th:text="Пароль">Пароль</label>
+        <label>Пароль</label>
         <input type="password" th:field="*{password}"/>
     </div>
     <div>
-        <label th:text="Подтвердите пароль">Подтвердите пароль</label>
+        <label>Подтвердите пароль</label>
         <input type="password" th:field="*{matchingPassword}"/>
     </div>
-    <button type="submit" th:text="Отправить">Отправить</button>
+    <button type="submit">Отправить</button>
     <div th:if="${#fields.hasAnyErrors()}">
         <ul>
             <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
@@ -26,8 +26,9 @@
     </div>
 
 </form>
-
-<a th:href="@{/api/login.html}" text="Login">Login page</a>
-
+<ul>
+    <li><a th:href="@{/api/login}" text="Login">Страница авторизации</a></li>
+    <li><a th:href="@{/}" text="Index">На главную</a></li>
+</ul>
 </body>
 </html>

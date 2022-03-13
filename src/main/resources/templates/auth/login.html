@@ -19,7 +19,11 @@
             <td><input name="submit" type="submit" value="Отправить" /></td>
         </tr>
     </table>
+    <div th:if="${error != null}"><span th:text="${error}" /></div>
 </form>
-<li><a href="/">На главную</a></li>
+<ul>
+    <li><a href="/">На главную</a></li>
+    <li><a href="/api/signup">Регистрация</a></li>
+</ul>
 </body>
 </html>

@@ -6,7 +6,9 @@
     <title>Главная страница</title>
 </head>
 <body>
-
+<div sec:authorize="!isAuthenticated()">
+    <h2>Notes application</h2>
+</div>
 <ul>
     <li><a href="/">На главную</a></li>
     <div sec:authorize="!isAuthenticated()">

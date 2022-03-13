@@ -23,17 +23,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final SecurityConfig securityConfig;
 
-    public User saveUser(User user) {
-        log.info("Saving new user {} to the db", user.getUsername());
-        String password = securityConfig.passwordEncoder().encode(user.getPassword());
-        user.setPassword(password);
-        return userRepository.save(user);
-    }
-
     public User registerUser(UserDto userDto) {
         if (emailExist(userDto.getUsername())) {
             log.info("UserExistsException occused");
-            throw new UserExistsException("There is already account with that email: " + userDto.getUsername());
+            throw new UserExistsException("Пользователь с таким Email уже существует: " + userDto.getUsername());
         }
         log.info("Signup new user {} to the db", userDto.getUsername());
         String password = securityConfig.passwordEncoder().encode(userDto.getPassword());
@@ -41,16 +34,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
-    public User getUser(String username) {
-        log.info("Fetching user {}", username);
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with name not found: " + username));
-    }
-
-    public List<User> getUsers() {
-        log.info("Fetching all users");
-        return userRepository.findAll();
-    }
     private boolean emailExist(String email) {
         return userRepository.getByUsername(email) != null;
     }
@@ -59,6 +42,6 @@ public class UserService {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedInUser.getName();
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("Прользователь не найден: " + username));
     }
 }

@@ -10,9 +10,11 @@
     <textarea id="note" name="noteText" class="text" cols="40" rows="7"></textarea><br>
     <input type="submit" value="Submit">
 </form>
+<div th:if="${error != null}"><span th:text="${error}" /></div>
 <ul>
     <li><a href="/">На главную</a></li>
     <li><a href="/api/notes">Список заметок</a></li>
+    <li><a href="/logout">Выйти</a></li>
 </ul>
 </body>
 </html>
